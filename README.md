@@ -6,7 +6,7 @@ Installation
 
 Tutorial
 - Endo_Count.py for counting endogenous Prime edited read from FASTQ
-- 
+- PE_Library_Searcher_FINAL.py for counting library Barcode and paired UMI from FASTQ
 
 
 requirements
