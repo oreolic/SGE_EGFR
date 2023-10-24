@@ -304,28 +304,13 @@ def main(fastq,output,bc):
     result.to_pickle('Output/{}_Barcode_UMIcollpased.pkl'.format(output))
 
     return
-# %%
-if __name__ == "__main__":
-    fastq = 'FASTQ/PC9/CBR1D10_Lib.extendedFrags.fastq'
-    output = 'Plasmid_C'
-    bc = pd.read_csv('Barcode/EGFR_Library_Barcode_Final.txt',sep='\t',index_col=1)
 
-    result = main(fastq,output)
-#%%
 if __name__ == "__main__":
     bc = pd.read_csv('Barcode/EGFR_Library_Barcode_Final.txt',sep='\t',index_col=1)
-
+    fastq = 'FASTQ/example.fastq'
+    output = 'example'
     files = os.listdir('FASTQ/T790M')
-    lst = []
-    for file in files:
-        if file.find('extended') == -1: pass
-        else:
-            t1 = datetime.now()
-            fastq = 'FASTQ/T790M/{}'.format(file)
-            output = file.split('_')[0]
-            print(output)
-            main(fastq,output,bc)
-            t2 = datetime.now()
-            print('Final Excution Time: {}'.format(t2-t1))
+
+    main(fastq,output,bc)
 
 # %%
