@@ -146,7 +146,7 @@ def conv(R1, EE, ref):
 
 ref = Endo_REF.exon(20)
 Exon = "E20"
-EE = pd.read_csv("/home/ps31/CRISPR/Endo/Endo_lib_conversion/PC9_{}_aa.csv".format(Exon))
+EE = pd.read_csv("Barcode/PC9_E20_aa.csv")
 
 
 R1 = read_fastqntrim("#####.fastq", ref)
