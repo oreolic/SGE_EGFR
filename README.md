@@ -9,7 +9,7 @@ Tutorial
 - PE_Library_Searcher_FINAL.py for counting library Barcode and paired UMI from FASTQ
 
 
-requirements
+python dependencies
 - python version >3.7
 - pandas
 
