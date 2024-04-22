@@ -1,4 +1,4 @@
-#%%
+
 import pandas as pd
 from concurrent.futures.process import ProcessPoolExecutor
 from Codes import general as gen
@@ -6,7 +6,7 @@ from Codes import umi_collapse as ucs
 from datetime import datetime
 import os
 
-#%%
+
 
 def edit_dist(str1, str2):
     str1 = str1.upper()
@@ -273,11 +273,14 @@ def define_rtpbs_umi(dic):
 
 
 
-#%%
 def main(fastq,output,bc):
     ## Defining NGS Read Component Reference Positio
     #bc = bc.set_index('SortingBarcode')
     dic = gen.Fastq().read_fastq(fastq)
+    total_read = 0
+    for read in dic:
+        total_read+=dic[read]
+
     readlst = list(dic.items())
 
     ### Searching Barcode
@@ -297,11 +300,16 @@ def main(fastq,output,bc):
     result = result[['Barcode','UMI','ReadCount']]
     result = result.sort_values(by='Barcode')
     result.index = [ i for i in range(result.shape[0])]
+
+    result2 = result.copy()
+    result2['RPM'] = result['ReadCount']/total_read
+    result2.to_pickle('Revision/{}_Barcode_CollapseOnly.pkl'.format(output))
+
     dfdic = gen.DataParsing().dfdic(result)
     
     result = ucs.umi_collapsing_for_library(dfdic)
-
-    result.to_pickle('Output/{}_Barcode_UMIcollpased.pkl'.format(output))
+    result['RPM'] = result['ReadCount']/total_read
+    result.to_pickle('Output/{}_All_Collapsed.pkl'.format(output))
 
     return
 
